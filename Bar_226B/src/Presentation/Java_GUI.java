@@ -1,6 +1,6 @@
-package Presentation; /**
- * Created by wizlamar on 26.04.17.
- */
+package Presentation;
+
+
 
 import Business.*;
 
@@ -33,6 +33,7 @@ public class Java_GUI extends JFrame implements ActionListener {
     JPanel hauptPanel = new JPanel();
     JPanel buttonPanel = new JPanel();
     JPanel datenPanel = new JPanel();
+    JPanel drinks = new JPanel();
 
     //JButtons
     JButton bierButton = new JButton("Bier");
@@ -49,18 +50,18 @@ public class Java_GUI extends JFrame implements ActionListener {
     JLabel energypreis = new JLabel("Preis: 3.00");
     JLabel info;
 
-   // BufferedImage barBackgroundIMG;
 
     public Java_GUI(Person person) {
 
         this.person = person;
-        info = new JLabel("Wenn sie den Alkoholwert " + person.berechneIndividuellpegel() +  " überschreiten dann ist Game Over!");
+        info = new JLabel("Nicht überschreiten! " + person.berechneIndividuellpegel());
 
         setLayout(new BorderLayout());
         JFrame meinFrame = new JFrame("Dr Völlscht isch dr töllscht");
         hauptPanel.setLayout(new BorderLayout());
-        buttonPanel.setLayout(new GridLayout(4,1));
-        datenPanel.setLayout(new GridLayout(3,1));
+        buttonPanel.setLayout(new GridLayout(1,4));
+        datenPanel.setLayout(new GridLayout(1,3));
+        drinks.setLayout(new GridLayout(1,4));
 
         //Grösse anpassen
         bierButton.setPreferredSize(new Dimension(50, 20));
@@ -69,13 +70,13 @@ public class Java_GUI extends JFrame implements ActionListener {
 
         //Elemente dem Panel Adden
         buttonPanel.add(bierButton);
-        buttonPanel.add(bierpreis);
+        drinks.add(bierpreis);
         buttonPanel.add(weinButton);
-        buttonPanel.add(weinpreis);
+        drinks.add(weinpreis);
         buttonPanel.add(ginButton);
-        buttonPanel.add(ginpreis);
+        drinks.add(ginpreis);
         buttonPanel.add(energyButton);
-        buttonPanel.add(energypreis);
+        drinks.add(energypreis);
 
         datenPanel.add(guthabenlbl);
         datenPanel.add(promilllbl);
@@ -83,6 +84,13 @@ public class Java_GUI extends JFrame implements ActionListener {
 
         //Label design
         info.setFont(info.getFont().deriveFont(Font.BOLD, 14f));
+        promilllbl.setFont(info.getFont().deriveFont(Font.BOLD, 16f));
+        guthabenlbl.setFont(info.getFont().deriveFont(Font.BOLD, 16f));
+        bierpreis.setFont(info.getFont().deriveFont(Font.BOLD, 16f));
+        ginpreis.setFont(info.getFont().deriveFont(Font.BOLD, 16f));
+        weinpreis.setFont(info.getFont().deriveFont(Font.BOLD, 16f));
+        energypreis.setFont(info.getFont().deriveFont(Font.BOLD, 16f));
+  
 
         hauptPanel.add(buttonPanel);
 
@@ -90,6 +98,7 @@ public class Java_GUI extends JFrame implements ActionListener {
         add(hauptPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.CENTER);
         add(datenPanel, BorderLayout.SOUTH);
+        add(drinks, BorderLayout.NORTH);
 
         //Actionlistener auf buttons zuweisen
 
@@ -101,7 +110,7 @@ public class Java_GUI extends JFrame implements ActionListener {
 
 
         //Grösse des Fensters
-        setSize(1200, 670);
+        setSize(600, 400);
         //Titel des Fensters
         setTitle("Dr Völlscht isch dr töllscht");
         //Schliesst Programm
@@ -114,7 +123,7 @@ public class Java_GUI extends JFrame implements ActionListener {
     
 
     public void actionPerformed(ActionEvent e) {
-    	DrinkLogic drink =new DrinkLogic();
+    	
 
         if (e.getSource() == bierButton) {
             logic.addGetraenk(bier);
@@ -122,6 +131,14 @@ public class Java_GUI extends JFrame implements ActionListener {
             guthabenlbl.setText("Ihr Guthaben: " + Guthaben);
             aktuellpegel = aktuellpegel + bier.getAlcoholPegel();
             promilllbl.setText("Ihr Alkoholwert: " + aktuellpegel);
+            drinks.setBackground(Color.orange);
+            datenPanel.setBackground(Color.orange);
+            bierButton.setForeground(Color.ORANGE);
+            weinButton.setForeground(Color.black);
+            ginButton.setForeground(Color.black);
+            energyButton.setForeground(Color.black);
+
+            
         }
 
         if (e.getSource() == weinButton) {
@@ -130,6 +147,12 @@ public class Java_GUI extends JFrame implements ActionListener {
             guthabenlbl.setText("Ihr Guthaben: " + Guthaben);
             aktuellpegel = aktuellpegel + wein.getAlcoholPegel();
             promilllbl.setText("Ihr Alkoholwert: " + aktuellpegel);
+            drinks.setBackground(Color.RED);
+            datenPanel.setBackground(Color.RED);
+            bierButton.setForeground(Color.black);
+            weinButton.setForeground(Color.red);
+            ginButton.setForeground(Color.black);
+            energyButton.setForeground(Color.black);
         }
 
         if (e.getSource() ==  ginButton) {
@@ -138,14 +161,31 @@ public class Java_GUI extends JFrame implements ActionListener {
             guthabenlbl.setText("Ihr Guthaben: " + Guthaben);
             aktuellpegel = aktuellpegel + gin.getAlcoholPegel();
             promilllbl.setText("Ihr Alkoholwert: " + aktuellpegel);
-        }
+            drinks.setBackground(Color.PINK);
+            datenPanel.setBackground(Color.pink);
+            bierButton.setForeground(Color.black);
+            weinButton.setForeground(Color.black);
+            ginButton.setForeground(Color.pink);
+            energyButton.setForeground(Color.black);
+            }
 
         if (e.getSource() == energyButton) {
             logic.addGetraenk(redbull);
             Guthaben = Guthaben - redbull.getPrice();
             guthabenlbl.setText("Ihr Guthaben: " + Guthaben);
             aktuellpegel = aktuellpegel - redbull.getAlcoholPegel();
-            promilllbl.setText("Ihr Alkoholwert: " + aktuellpegel);
+            promilllbl.setText("Ihr Alkoholwert: " + aktuellpegel); 
+            drinks.setBackground(Color.YELLOW);
+            datenPanel.setBackground(Color.YELLOW);
+            bierButton.setForeground(Color.black);
+            weinButton.setForeground(Color.black);
+            ginButton.setForeground(Color.black);
+            energyButton.setForeground(Color.yellow);
+            
+        }
+        
+        if (Guthaben == 0){
+        	JOptionPane.showMessageDialog(null, "Your Score is " + aktuellpegel);
         }
 
         if (aktuellpegel >= person.individuellpegel){

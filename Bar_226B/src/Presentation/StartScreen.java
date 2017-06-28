@@ -3,6 +3,7 @@ package Presentation;
 import Business.Person;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -83,6 +84,7 @@ public class StartScreen extends JFrame implements ActionListener {
         if (e.getSource() == this.weiterButton) {
             Person person = new Person(Integer.parseInt(groessetxt.getText()) , Double.parseDouble(gewichttxt.getText()));
              jg = new Java_GUI(person);
+             
         }
         if (e.getSource() == this.check1) {
 
